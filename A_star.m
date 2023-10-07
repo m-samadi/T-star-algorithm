@@ -1,13 +1,9 @@
-%%% T* search algorithm
+%%% A* search algorithm
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [Path ProcessedNodes Length] = T_star(TheNumberOfNodes,W,Location,Start,Target)
-    Alpha=0.3;
-    Beta=0.4;
-    Gamma=0.3;
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [Path ProcessedNodes Length] = A_star(TheNumberOfNodes,W,Location,Start,Target)
     ProcessedNodes=1;    
     
     CloseSet=[];
@@ -115,15 +111,7 @@ function [Path ProcessedNodes Length] = T_star(TheNumberOfNodes,W,Location,Start
 
                         OpenSet_Index=OpenSet_Index+1;
                         OpenSet(OpenSet_Index,1)=Neighbor;                    
-                        x0=Location(Neighbor,1);
-                        y0=Location(Neighbor,2);                        
-                        x1=Location(Start,1);
-                        y1=Location(Start,2);
-                        x2=Location(Target,1);
-                        y2=Location(Target,2);                        
-                        h1=abs((y2-y1)*x0-(x2-x1)*y0+x2*y1-y2*x1)/sqrt((y2-y1)^2+(x2-x1)^2);                        
-                        h2=sqrt((x2-x0)^2+(y2-y0)^2);                        
-                        OpenSet(OpenSet_Index,2)=Alpha*G(Neighbor,1)+Beta*h1+Gamma*h2;
+                        OpenSet(OpenSet_Index,2)=G(Neighbor,1)+sqrt((Location(Target,1)-Location(Neighbor,1))^2+(Location(Target,2)-Location(Neighbor,2))^2);
                         
                         ProcessedNodes=ProcessedNodes+1;
                     end;
